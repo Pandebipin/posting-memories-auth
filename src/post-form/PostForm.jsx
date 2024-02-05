@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE, Select } from "..";
-import appwriteService from "../../appwrite/config";
+import { Button, Input, RTE, Select } from "../components/index";
+import appwriteService from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -15,7 +15,7 @@ export default function PostForm({ post }) {
         status: post?.status || "active",
       },
     });
-
+  console.log(post);
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
@@ -25,8 +25,10 @@ export default function PostForm({ post }) {
         ? await appwriteService.uploadFile(data.image[0])
         : null;
 
+      console.log(`the data is ${data}`);
       if (file) {
         appwriteService.deleteFile(post.featuredImage);
+        console.log(file);
       }
 
       const dbPost = await appwriteService.updatePost(post.$id, {
@@ -36,6 +38,7 @@ export default function PostForm({ post }) {
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
+        console.log(dbPost.$id);
       }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
@@ -50,6 +53,7 @@ export default function PostForm({ post }) {
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
+          console.log(dbPost);
         }
       }
     }
@@ -118,6 +122,7 @@ export default function PostForm({ post }) {
               alt={post.title}
               className="rounded-lg"
             />
+            {console.log(post.title)};<p>{post.title}</p>
           </div>
         )}
         <Select
