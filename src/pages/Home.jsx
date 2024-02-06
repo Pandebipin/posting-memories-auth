@@ -21,7 +21,7 @@ function Home() {
             <div className="p-2 w-full">
               <h1 className="text-2xl font-bold hover:text-gray-500">
                 Login to read posts <br />
-                {`hey guys`}
+                {`hey guys this is not working`}
               </h1>
             </div>
           </div>
@@ -35,7 +35,7 @@ function Home() {
         <div className="flex flex-wrap">
           {posts.map((post) => (
             <div key={post.$id} className="p-2 w-1/4">
-              <PostCard post={post} />
+              <PostCard {...post} />
             </div>
           ))}
         </div>
